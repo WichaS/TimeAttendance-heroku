@@ -4,18 +4,18 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 const chalk = require("chalk");
-
+const path = require("path");
 const db = require("./app/models");
 const Role = db.role;
 
 var corsOptions = {
   origin: "http://localhost:8081",
 };
-// app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "build")));
 
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and Resync Db");
 //   initial();
@@ -33,9 +33,9 @@ app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "Welcome to bezkoder application." });
+// });
 
 // routes
 require("./app/routes/auth.routes")(app);
