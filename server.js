@@ -11,11 +11,7 @@ const Role = db.role;
 var corsOptions = {
   origin: "http://localhost:8081",
 };
-app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and Resync Db");
 //   initial();
@@ -36,7 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 // app.get("/", (req, res) => {
 //   res.json({ message: "Welcome to bezkoder application." });
 // });
+app.use(express.static(path.join(__dirname, "build")));
 
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
