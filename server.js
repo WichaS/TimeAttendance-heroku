@@ -24,7 +24,7 @@ db.sequelize.sync();
 
 app.use(morgan("dev"));
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json({ limit: "2mb" }));
@@ -32,10 +32,10 @@ app.use(express.json({ limit: "2mb" }));
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// // simple route
-// app.get("/", (req, res) => {
-//   res.json({ message: "Welcome to bezkoder application." });
-// });
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
 
 // routes
 require("./app/routes/auth.routes")(app);
