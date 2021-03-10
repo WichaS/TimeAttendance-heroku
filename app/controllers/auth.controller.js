@@ -73,11 +73,16 @@ exports.signin = (req, res) => {
       username: req.body.username,
     },
   })
-    .then((user) => {
+    .then(async (user) => {
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
-
+      let userInfoData = await UserInfo.findOne({
+        where: {
+          id: user.id,
+        },
+      });
+      console.log("userInfoData==", userInfoData);
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
@@ -107,6 +112,8 @@ exports.signin = (req, res) => {
           email: user.email,
           roles: authorities,
           accessToken: token,
+          firstName: userInfoData.firstName,
+          lastName: userInfoData.lastName,
         });
       });
     })
