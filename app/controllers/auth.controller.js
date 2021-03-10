@@ -114,6 +114,9 @@ exports.signin = (req, res) => {
           accessToken: token,
           firstName: userInfoData.firstName,
           lastName: userInfoData.lastName,
+          fullName: `${
+            userInfoData.firstName
+          } ${userInfoData.lastName.substring(0, 1).toUpperCase()}`,
         });
       });
     })
